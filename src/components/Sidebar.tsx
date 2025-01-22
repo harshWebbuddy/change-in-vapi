@@ -7,7 +7,8 @@ import {
   MessageSquare,
   ChevronDown,
   HelpCircle,
-  User
+  User,
+  LayoutDashboard
 } from 'lucide-react';
 
 const Sidebar = () => {
@@ -36,6 +37,16 @@ const Sidebar = () => {
         {/* Main Navigation */}
         <div className="space-y-1">
           <div className="space-y-1">
+            <Link
+              to="/dashboard"
+              className={`flex items-center space-x-3 px-3 py-2 text-gray-400 hover:text-white rounded-md hover:bg-[#25262B] transition-colors ${
+                isActive('/dashboard') ? 'bg-[#7C3AED] text-white' : ''
+              }`}
+            >
+              <LayoutDashboard className="w-5 h-5" />
+              <span>Dashboard</span>
+            </Link>
+
             <Link
               to="/assistants"
               className={`flex items-center space-x-3 px-3 py-2 text-gray-400 hover:text-white rounded-md hover:bg-[#25262B] transition-colors ${

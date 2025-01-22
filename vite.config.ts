@@ -9,9 +9,9 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 3000,
     headers: {
-      'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:;",
+      'Content-Security-Policy': "default-src 'self' chrome-extension: data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' chrome-extension: * 'inline-speculation-rules'; style-src 'self' 'unsafe-inline' chrome-extension:; img-src 'self' data: https: chrome-extension:; font-src 'self' data:; media-src 'self' data: blob:; connect-src 'self' data: blob: chrome-extension: *; worker-src 'self' blob: chrome-extension:;",
       'X-Content-Type-Options': 'nosniff',
-      'X-Frame-Options': 'DENY',
+      'X-Frame-Options': 'SAMEORIGIN',
       'Referrer-Policy': 'strict-origin-when-cross-origin'
     }
   },
