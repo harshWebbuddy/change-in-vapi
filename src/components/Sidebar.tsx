@@ -1,114 +1,138 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
 import Avatar from '@mui/material/Avatar';
-import { Phone, Description, Assessment, History } from '@mui/icons-material';
+import { Search, Add } from '@mui/icons-material';
 
 const SidebarContainer = styled(Box)(({ theme }) => ({
-  width: '280px',
-  backgroundColor: '#111111',
-  borderRight: '1px solid rgba(255, 255, 255, 0.1)',
-  padding: theme.spacing(3),
+  width: '360px',
+  backgroundColor: '#1a1a1a',
+  height: '100vh',
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(4)
+  padding: '16px',
 }));
 
-const UserSection = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(2),
-  marginBottom: theme.spacing(2),
-  borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+const CreateButton = styled(Button)(({ theme }) => ({
+  backgroundColor: '#8B5CF6',
+  color: '#ffffff',
+  padding: '12px',
+  borderRadius: '8px',
+  textTransform: 'none',
+  fontSize: '0.9375rem',
+  fontWeight: 500,
+  '&:hover': {
+    backgroundColor: '#7C3AED',
+  },
+}));
+
+const SearchField = styled(TextField)(({ theme }) => ({
+  marginTop: '16px',
+  '& .MuiOutlinedInput-root': {
+    backgroundColor: '#262626',
+    borderRadius: '6px',
+    height: '40px',
+    '& fieldset': {
+      border: 'none',
+    },
+    '&:hover fieldset': {
+      border: 'none',
+    },
+    '&.Mui-focused fieldset': {
+      border: 'none',
+    },
+  },
+  '& .MuiOutlinedInput-input': {
+    color: '#ffffff',
+    '&::placeholder': {
+      color: 'rgba(255, 255, 255, 0.5)',
+      opacity: 1,
+    },
+  },
+  '& .MuiInputAdornment-root .MuiSvgIcon-root': {
+    color: 'rgba(255, 255, 255, 0.5)',
+  },
+}));
+
+const AssistantItem = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  gap: theme.spacing(2),
-  '& .MuiAvatar-root': {
-    width: 48,
-    height: 48,
-    background: 'linear-gradient(135deg, #8B5CF6 0%, #6366F1 100%)',
-    fontSize: '1.2rem',
-    fontWeight: 600
-  }
-}));
-
-const NavItem = styled(ListItem)(({ theme }) => ({
-  borderRadius: 8,
-  marginBottom: theme.spacing(1),
-  padding: '10px 16px',
-  transition: 'all 0.2s ease',
+  gap: '12px',
+  padding: '12px',
+  borderRadius: '8px',
+  cursor: 'pointer',
   '&:hover': {
     backgroundColor: 'rgba(255, 255, 255, 0.05)',
   },
-  '&.Mui-selected': {
-    backgroundColor: 'rgba(139, 92, 246, 0.15)',
-    '&:hover': {
-      backgroundColor: 'rgba(139, 92, 246, 0.2)',
-    }
-  }
 }));
 
-const StyledListItemText = styled(ListItemText)(({ theme }) => ({
-  '& .MuiTypography-root': {
-    fontWeight: 500,
-    fontSize: '0.95rem'
-  }
+const AssistantAvatar = styled(Avatar)(({ theme }) => ({
+  backgroundColor: '#8B5CF6',
+  width: 36,
+  height: 36,
+  fontSize: '1rem',
+}));
+
+const AssistantInfo = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '2px',
+}));
+
+const AssistantName = styled(Box)(({ theme }) => ({
+  color: '#ffffff',
+  fontSize: '0.9375rem',
+  fontWeight: 500,
+}));
+
+const AssistantType = styled(Box)(({ theme }) => ({
+  color: 'rgba(255, 255, 255, 0.5)',
+  fontSize: '0.8125rem',
+}));
+
+const AssistantList = styled(Box)(({ theme }) => ({
+  marginTop: '16px',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '4px',
 }));
 
 const Sidebar = () => {
   return (
     <SidebarContainer>
-      <UserSection>
-        <Avatar>S</Avatar>
-        <Box>
-          <Box sx={{ 
-            color: '#ffffff', 
-            fontWeight: 600,
-            fontSize: '1rem',
-            marginBottom: '4px'
-          }}>
-            Sanskar Shastri
-          </Box>
-          <Box sx={{ 
-            color: 'rgba(255, 255, 255, 0.5)', 
-            fontSize: '0.875rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '4px'
-          }}>
-            Free Plan
-          </Box>
-        </Box>
-      </UserSection>
+      <CreateButton
+        fullWidth
+        startIcon={<Add />}
+      >
+        Create Assistant
+      </CreateButton>
 
-      <List sx={{ width: '100%', padding: 0 }}>
-        <NavItem sx={{ backgroundColor: 'rgba(139, 92, 246, 0.15)' }}>
-          <ListItemIcon sx={{ color: '#8B5CF6', minWidth: 40 }}>
-            <Assessment />
-          </ListItemIcon>
-          <StyledListItemText primary="Assistants" sx={{ color: '#ffffff' }} />
-        </NavItem>
-        <NavItem>
-          <ListItemIcon sx={{ color: 'rgba(255, 255, 255, 0.5)', minWidth: 40 }}>
-            <Phone />
-          </ListItemIcon>
-          <StyledListItemText primary="Phone Numbers" sx={{ color: 'rgba(255, 255, 255, 0.5)' }} />
-        </NavItem>
-        <NavItem>
-          <ListItemIcon sx={{ color: 'rgba(255, 255, 255, 0.5)', minWidth: 40 }}>
-            <Description />
-          </ListItemIcon>
-          <StyledListItemText primary="Files" sx={{ color: 'rgba(255, 255, 255, 0.5)' }} />
-        </NavItem>
-        <NavItem>
-          <ListItemIcon sx={{ color: 'rgba(255, 255, 255, 0.5)', minWidth: 40 }}>
-            <History />
-          </ListItemIcon>
-          <StyledListItemText primary="Call Logs" sx={{ color: 'rgba(255, 255, 255, 0.5)' }} />
-        </NavItem>
-      </List>
+      <SearchField
+        fullWidth
+        placeholder="Search assistants..."
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <Search />
+            </InputAdornment>
+          ),
+        }}
+      />
+
+      <AssistantList>
+        {['Assistant 1', 'Assistant 2', 'Assistant 3'].map((name) => (
+          <AssistantItem key={name}>
+            <AssistantAvatar>A</AssistantAvatar>
+            <AssistantInfo>
+              <AssistantName>{name}</AssistantName>
+              <AssistantType>AI Assistant</AssistantType>
+            </AssistantInfo>
+          </AssistantItem>
+        ))}
+      </AssistantList>
     </SidebarContainer>
   );
 };
