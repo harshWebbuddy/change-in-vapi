@@ -64,9 +64,38 @@ export default {
             transform: "translateY(0)",
           },
         },
+        "fade-in-up": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(20px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
+        float: {
+          "0%, 100%": {
+            transform: "translateY(0)",
+          },
+          "50%": {
+            transform: "translateY(-20px)",
+          },
+        },
+        "gradient-slide": {
+          "0%": {
+            left: "-50%",
+          },
+          "100%": {
+            left: "0%",
+          },
+        },
       },
       animation: {
         "fade-up": "fade-up 0.5s ease-out",
+        "fade-in-up": "fade-in-up 0.5s ease-out forwards",
+        "float": "float 6s ease-in-out infinite",
+        "gradient-slide": "gradient-slide 4s ease-in-out infinite",
       },
     },
   },
