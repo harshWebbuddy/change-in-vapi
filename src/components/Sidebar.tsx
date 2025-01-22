@@ -1,139 +1,109 @@
 import React from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
-import Avatar from '@mui/material/Avatar';
-import { Search, Add } from '@mui/icons-material';
-
-const SidebarContainer = styled(Box)(({ theme }) => ({
-  width: '360px',
-  backgroundColor: '#1a1a1a',
-  height: '100vh',
-  display: 'flex',
-  flexDirection: 'column',
-  padding: '16px',
-}));
-
-const CreateButton = styled(Button)(({ theme }) => ({
-  backgroundColor: '#8B5CF6',
-  color: '#ffffff',
-  padding: '12px',
-  borderRadius: '8px',
-  textTransform: 'none',
-  fontSize: '0.9375rem',
-  fontWeight: 500,
-  '&:hover': {
-    backgroundColor: '#7C3AED',
-  },
-}));
-
-const SearchField = styled(TextField)(({ theme }) => ({
-  marginTop: '16px',
-  '& .MuiOutlinedInput-root': {
-    backgroundColor: '#262626',
-    borderRadius: '6px',
-    height: '40px',
-    '& fieldset': {
-      border: 'none',
-    },
-    '&:hover fieldset': {
-      border: 'none',
-    },
-    '&.Mui-focused fieldset': {
-      border: 'none',
-    },
-  },
-  '& .MuiOutlinedInput-input': {
-    color: '#ffffff',
-    '&::placeholder': {
-      color: 'rgba(255, 255, 255, 0.5)',
-      opacity: 1,
-    },
-  },
-  '& .MuiInputAdornment-root .MuiSvgIcon-root': {
-    color: 'rgba(255, 255, 255, 0.5)',
-  },
-}));
-
-const AssistantItem = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '12px',
-  padding: '12px',
-  borderRadius: '8px',
-  cursor: 'pointer',
-  '&:hover': {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-  },
-}));
-
-const AssistantAvatar = styled(Avatar)(({ theme }) => ({
-  backgroundColor: '#8B5CF6',
-  width: 36,
-  height: 36,
-  fontSize: '1rem',
-}));
-
-const AssistantInfo = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '2px',
-}));
-
-const AssistantName = styled(Box)(({ theme }) => ({
-  color: '#ffffff',
-  fontSize: '0.9375rem',
-  fontWeight: 500,
-}));
-
-const AssistantType = styled(Box)(({ theme }) => ({
-  color: 'rgba(255, 255, 255, 0.5)',
-  fontSize: '0.8125rem',
-}));
-
-const AssistantList = styled(Box)(({ theme }) => ({
-  marginTop: '16px',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '4px',
-}));
+import { Link, useLocation } from 'react-router-dom';
+import {
+  Users,
+  Phone,
+  FileText,
+  MessageSquare,
+  ChevronDown,
+  HelpCircle,
+  User
+} from 'lucide-react';
 
 const Sidebar = () => {
+  const location = useLocation();
+
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
+
   return (
-    <SidebarContainer>
-      <CreateButton
-        fullWidth
-        startIcon={<Add />}
-      >
-        Create Assistant
-      </CreateButton>
+    <div className="w-64 bg-[#1A1B1E] border-r border-[#2C2D32] flex flex-col h-screen">
+      {/* Logo */}
+      <div className="p-4">
+        <Link to="/" className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-[#7C3AED] rounded-lg flex items-center justify-center">
+              <span className="text-white font-semibold">V</span>
+            </div>
+            <span className="text-white font-semibold">VoiceAI</span>
+          </div>
+        </Link>
+      </div>
 
-      <SearchField
-        fullWidth
-        placeholder="Search assistants..."
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Search />
-            </InputAdornment>
-          ),
-        }}
-      />
+      {/* Navigation */}
+      <nav className="flex-1 px-2 py-4 space-y-1">
+        {/* Main Navigation */}
+        <div className="space-y-1">
+          <div className="space-y-1">
+            <Link
+              to="/assistants"
+              className={`flex items-center space-x-3 px-3 py-2 text-gray-400 hover:text-white rounded-md hover:bg-[#25262B] transition-colors ${
+                isActive('/assistants') ? 'bg-[#7C3AED] text-white' : ''
+              }`}
+            >
+              <Users className="w-5 h-5" />
+              <span>Assistants</span>
+            </Link>
 
-      <AssistantList>
-        {['Assistant 1', 'Assistant 2', 'Assistant 3'].map((name) => (
-          <AssistantItem key={name}>
-            <AssistantAvatar>A</AssistantAvatar>
-            <AssistantInfo>
-              <AssistantName>{name}</AssistantName>
-              <AssistantType>AI Assistant</AssistantType>
-            </AssistantInfo>
-          </AssistantItem>
-        ))}
-      </AssistantList>
-    </SidebarContainer>
+            <Link
+              to="/phone-number"
+              className={`flex items-center space-x-3 px-3 py-2 text-gray-400 hover:text-white rounded-md hover:bg-[#25262B] transition-colors ${
+                isActive('/phone-number') ? 'bg-[#7C3AED] text-white' : ''
+              }`}
+            >
+              <Phone className="w-5 h-5" />
+              <span>Phone Numbers</span>
+            </Link>
+
+            <Link
+              to="/files"
+              className={`flex items-center space-x-3 px-3 py-2 text-gray-400 hover:text-white rounded-md hover:bg-[#25262B] transition-colors ${
+                isActive('/files') ? 'bg-[#7C3AED] text-white' : ''
+              }`}
+            >
+              <FileText className="w-5 h-5" />
+              <span>Files</span>
+            </Link>
+
+            <Link
+              to="/logs"
+              className={`flex items-center justify-between px-3 py-2 text-gray-400 hover:text-white rounded-md hover:bg-[#25262B] transition-colors ${
+                isActive('/logs') ? 'bg-[#7C3AED] text-white' : ''
+              }`}
+            >
+              <div className="flex items-center space-x-3">
+                <MessageSquare className="w-5 h-5" />
+                <span>Logs</span>
+              </div>
+              <ChevronDown className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </nav>
+
+      {/* Bottom Section */}
+      <div className="p-4 border-t border-[#2C2D32]">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-[#25262B] rounded-full flex items-center justify-center">
+              <User className="w-5 h-5 text-gray-400" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm text-white">Profile</span>
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center space-x-2 px-3 py-2 text-[#4DB8B2] bg-[#25262B] rounded-md cursor-pointer hover:bg-[#2C2D32] transition-colors">
+          <span className="text-sm">sanskar@webbuddy.co</span>
+          <ChevronDown className="w-4 h-4" />
+        </div>
+        <button className="mt-2 flex items-center space-x-2 px-3 py-2 text-gray-400 hover:text-white rounded-md hover:bg-[#25262B] transition-colors w-full">
+          <HelpCircle className="w-4 h-4" />
+          <span className="text-sm">Docs and Support</span>
+        </button>
+      </div>
+    </div>
   );
 };
 

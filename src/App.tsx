@@ -4,6 +4,9 @@ import Index from './pages/Index';
 import SignIn from './pages/signin';
 import FreeTrial from './pages/free-trial';
 import Dashboard from './pages/Dashboard';
+import PhoneNumber from './pages/PhoneNumber';
+import Files from './pages/Files';
+import Logs from './pages/Logs';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -23,6 +26,9 @@ const App = () => {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/free-trial" element={<FreeTrial />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/phone-number" element={<PhoneNumber />} />
+            <Route path="/files" element={<Files />} />
+            <Route path="/logs" element={<Logs />} />
           </Routes>
         </Router>
       </TooltipProvider>
