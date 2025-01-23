@@ -1,9 +1,35 @@
-import React from 'react';
-import { Menu, X, Globe } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+
+  const HandleSignIn = () => {
+    window.location.href = "/sign-in";
+  };
+
+  const HandleSignUp = () => {
+    window.location.href = "/sign-up";
+  };
+
+  const scrollToUseCases = (e) => {
+    e.preventDefault();
+    const element = document.getElementById("use-cases");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      window.history.pushState(null, "", "/#use-cases");
+    }
+  };
+
+  const scrollToFAQ = (e) => {
+    e.preventDefault();
+    const element = document.getElementById("faq");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      window.history.pushState(null, "", "/#faq");
+    }
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-800/50">
@@ -21,24 +47,44 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-zinc-400 hover:text-white transition-colors duration-200">
-              Features
+            <a
+              href="#use-cases"
+              onClick={scrollToUseCases}
+              className="text-zinc-400 hover:text-white transition-colors duration-200"
+            >
+              Use Cases
             </a>
-            <a href="#pricing" className="text-zinc-400 hover:text-white transition-colors duration-200">
+            <a
+              href="#"
+              className="text-zinc-400 hover:text-white transition-colors duration-200"
+            >
+              Company
+            </a>
+            <a
+              href="#"
+              className="text-zinc-400 hover:text-white transition-colors duration-200"
+            >
               Pricing
             </a>
-            <a href="#docs" className="text-zinc-400 hover:text-white transition-colors duration-200">
-              Documentation
-            </a>
-            <Link to="/signin" className="text-zinc-400 hover:text-white transition-colors duration-200">
-              Sign in
-            </Link>
-            <Link 
-              to="/free-trial"
-              className="bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+            <a
+              href="#faq"
+              onClick={scrollToFAQ}
+              className="text-zinc-400 hover:text-white transition-colors duration-200"
             >
-              Start free trial
-            </Link>
+              FAQ
+            </a>
+            <div
+              onClick={HandleSignIn}
+              className="bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 cursor-pointer"
+            >
+              Sign In
+            </div>
+            <div
+              onClick={HandleSignUp}
+              className="bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 cursor-pointer"
+            >
+              Free Trial
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -47,7 +93,11 @@ const Navbar = () => {
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-zinc-400 hover:text-white hover:bg-zinc-800 focus:outline-none"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
           </div>
         </div>
@@ -58,35 +108,43 @@ const Navbar = () => {
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 bg-zinc-900/90 backdrop-blur-xl border-b border-zinc-800/50">
             <a
-              href="#features"
+              href="#use-cases"
+              onClick={scrollToUseCases}
               className="block px-3 py-2 rounded-md text-base font-medium text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors duration-200"
             >
-              Features
+              Use Cases
             </a>
             <a
-              href="#pricing"
+              href="#"
+              className="block px-3 py-2 rounded-md text-base font-medium text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors duration-200"
+            >
+              Company
+            </a>
+            <a
+              href="#"
               className="block px-3 py-2 rounded-md text-base font-medium text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors duration-200"
             >
               Pricing
             </a>
             <a
-              href="#docs"
+              href="#faq"
+              onClick={scrollToFAQ}
               className="block px-3 py-2 rounded-md text-base font-medium text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors duration-200"
             >
-              Documentation
+              FAQ
             </a>
-            <Link
-              to="/signin"
-              className="block px-3 py-2 rounded-md text-base font-medium text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors duration-200"
+            <div
+              onClick={HandleSignIn}
+              className="block px-3 py-2 rounded-md text-base font-medium text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors duration-200 cursor-pointer"
             >
-              Sign in
-            </Link>
-            <Link
-              to="/free-trial"
-              className="block px-3 py-2 rounded-md text-base font-medium bg-violet-600 text-white hover:bg-violet-700 transition-colors duration-200"
+              Sign In
+            </div>
+            <div
+              onClick={HandleSignUp}
+              className="block px-3 py-2 rounded-md text-base font-medium bg-violet-600 text-white hover:bg-violet-700 transition-colors duration-200 cursor-pointer"
             >
-              Start free trial
-            </Link>
+              Free Trial
+            </div>
           </div>
         </div>
       )}

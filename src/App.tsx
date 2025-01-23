@@ -1,38 +1,105 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Index from './pages/Index';
-import SignIn from './pages/signin';
-import FreeTrial from './pages/free-trial';
-import Dashboard from './pages/Dashboard';
-import PhoneNumber from './pages/PhoneNumber';
-import Files from './pages/Files';
-import Logs from './pages/Logs';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import Index from "./pages/Index";
+import Dashboard from "./pages/Dashboard";
+import PhoneNumber from "./pages/PhoneNumber";
+import Files from "./pages/Files";
+import Logs from "./pages/Logs";
+import Blogs from "./pages/Blogs";
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import SignUpPage from "./pages/signup";
+import { AuthProvider } from "./contexts/AuthContext";
+import SignInPage from "./pages/Signin";
+import Company from "./pages/Company";
+import BlogpageAI from "./pages/Blog1";
+import ProfilePage from "./components/ProfilePage";
 
 const queryClient = new QueryClient();
+
+// Protected Route component
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    return <Navigate to="/signin" />;
+  }
+  return <>{children}</>;
+};
+
+function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<Index />} />
+      <Route path="/signin" element={<SignInPage />} />
+      <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/blogs" element={<Blogs />} />
+      <Route path="/blogs1" element={<BlogpageAI />} />
+      <Route path="/Company" element={<Company />} />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />{" "}
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/phone-numbers"
+        element={
+          <ProtectedRoute>
+            <PhoneNumber />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/files"
+        element={
+          <ProtectedRoute>
+            <Files />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/call-logs"
+        element={
+          <ProtectedRoute>
+            <Logs />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="*" element={<Navigate to="/signin" />} />
+    </Routes>
+  );
+}
 
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <Router>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/free-trial" element={<FreeTrial />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/phone-number" element={<PhoneNumber />} />
-            <Route path="/files" element={<Files />} />
-            <Route path="/call-logs" element={<Logs />} />
-            {/* <Route path="/assistant" element={<Assistant />} /> */}
-          </Routes>
-        </Router>
-      </TooltipProvider>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <Router>
+            <AppRoutes />
+          </Router>
+        </TooltipProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 };

@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, Github, Mail } from "lucide-react";
-import axios from "@/lib/axios";
-import { useAuth } from "@/contexts/AuthContext";
-import type { AuthResponse } from "@/types/auth";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignUpPage = () => {
   const [email, setEmail] = useState("");
@@ -12,7 +10,6 @@ const SignUpPage = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,13 +17,17 @@ const SignUpPage = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post<AuthResponse>("/signup", {
+      const response = await axios.post("http://localhost:3000/api/signup", {
         email,
         password,
         name,
       });
 
-      login(response.data.token, response.data.user);
+      // Store token in localStorage
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", response.data.userId);
+
+      // Redirect to dashboard
       navigate("/dashboard");
     } catch (err: any) {
       setError(err.response?.data?.message || "An error occurred");

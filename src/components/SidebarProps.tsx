@@ -14,8 +14,8 @@ import {
   RiUserLine,
   RiSettings4Line,
 } from "react-icons/ri";
-import { useAuth, useUser, SignOutButton } from "@clerk/clerk-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface MenuItem {
   label: string;
@@ -45,7 +45,7 @@ const Sidebar = () => {
   const [expandedItems, setExpandedItems] = useState<string[]>(["Platform"]);
   const location = useLocation();
   const navigate = useNavigate();
-//   const { user } = useUser();
+  const { user, logout } = useAuth();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -68,7 +68,8 @@ const Sidebar = () => {
   }, []);
 
   const handleSignOut = () => {
-    navigate("/");
+    logout();
+    navigate("/signin");
   };
 
   const toggleExpand = (label: string) => {
@@ -137,7 +138,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-72 h-screen bg-[#1A1B1E] border-r-2 border-[#2C2D32] flex flex-col">
+    <div className="w-72 h-full bg-[#1A1B1E] border-r-2 border-[#2C2D32] flex flex-col">
       {/* Header */}
       <div className="p-4 flex items-center border-b border-[#2C2D32]">
         <Link to="/" className="flex items-center">
@@ -153,29 +154,17 @@ const Sidebar = () => {
             className="flex items-center cursor-pointer"
             onClick={() => setShowUserMenu(!showUserMenu)}
           >
-            {/* <div className="w-10 h-10 rounded-full bg-[#7C3AED] flex items-center justify-center mr-3">
-              {user?.imageUrl ? (
-                <img
-                  src={user.imageUrl}
-                  alt={user?.firstName || "User"}
-                  className="w-10 h-10 rounded-full"
-                />
-              ) : (
-                <span className="text-sm font-medium text-white">
-                  {user?.firstName?.[0] ||
-                    user?.emailAddresses?.[0]?.emailAddress?.[0]?.toUpperCase() ||
-                    "U"}
-                </span>
-              )}
+            <div className="w-10 h-10 rounded-full bg-[#7C3AED] flex items-center justify-center mr-3">
+              <span className="text-sm font-medium text-white">
+                {user?.name?.[0]?.toUpperCase() || "U"}
+              </span>
             </div>
             <div className="flex-1">
               <div className="text-sm font-medium text-white">
-                {user?.firstName
-                  ? `${user.firstName} ${user.lastName || ""}`
-                  : user?.emailAddresses?.[0]?.emailAddress}
+                {user?.name || "User"}
               </div>
-              <div className="text-xs text-gray-400">Free Plan</div>
-            </div> */}
+              <div className="text-xs text-gray-400">{user?.email}</div>
+            </div>
             <RiArrowDownSLine
               className={`w-5 h-5 text-gray-400 ml-2 transition-transform ${
                 showUserMenu ? "rotate-180" : ""
@@ -197,22 +186,18 @@ const Sidebar = () => {
                 <Link
                   to="/profile"
                   className="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-[#25262B]/50"
-                  onClick={() => {
-                    setShowUserMenu(false);
-                  }}
+                  onClick={() => setShowUserMenu(false)}
                 >
                   <RiUserLine className="w-4 h-4 mr-2" />
                   Profile Settings
                 </Link>
-                <SignOutButton>
-                  <button
-                    onClick={handleSignOut}
-                    className="flex items-center w-full px-4 py-2 text-sm text-gray-300 hover:bg-[#25262B]/50"
-                  >
-                    <RiLogoutBoxLine className="w-4 h-4 mr-2" />
-                    Sign Out
-                  </button>
-                </SignOutButton>
+                <button
+                  onClick={handleSignOut}
+                  className="flex items-center w-full px-4 py-2 text-sm text-gray-300 hover:bg-[#25262B]/50"
+                >
+                  <RiLogoutBoxLine className="w-4 h-4 mr-2" />
+                  Sign Out
+                </button>
               </div>
             </motion.div>
           )}

@@ -1,8 +1,39 @@
-import React from 'react';
-import { ArrowRight, Github, Mail } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { ArrowRight, Github, Mail } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const SignIn = () => {
+const SignInPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      const response = await axios.post("http://localhost:3000/api/signin", {
+        email,
+        password,
+      });
+
+      // Store token in localStorage
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", response.data.userId);
+
+      // Redirect to dashboard
+      navigate("/dashboard");
+    } catch (err: any) {
+      setError(err.response?.data?.message || "An error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-zinc-950 flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md space-y-8">
@@ -18,8 +49,16 @@ const SignIn = () => {
 
         {/* Sign In Form */}
         <div className="bg-zinc-900/50 backdrop-blur-xl p-8 rounded-2xl border border-zinc-800/50">
-          <h2 className="text-2xl font-bold text-white mb-6 text-center">Sign in to your account</h2>
-          
+          <h2 className="text-2xl font-bold text-white mb-6 text-center">
+            Sign in to your account
+          </h2>
+
+          {error && (
+            <div className="mb-4 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 text-sm">
+              {error}
+            </div>
+          )}
+
           {/* OAuth Buttons */}
           <div className="space-y-3 mb-6">
             <button className="w-full flex items-center justify-center space-x-2 bg-zinc-800 hover:bg-zinc-700 text-white py-3 px-4 rounded-lg transition-colors duration-200">
@@ -37,41 +76,54 @@ const SignIn = () => {
               <div className="w-full border-t border-zinc-800"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-zinc-900/50 text-zinc-500">Or continue with</span>
+              <span className="px-2 bg-zinc-900/50 text-zinc-500">
+                Or continue with
+              </span>
             </div>
           </div>
 
           {/* Email Form */}
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-zinc-400 mb-1">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-zinc-400 mb-1"
+              >
                 Email address
               </label>
               <input
                 id="email"
                 type="email"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-zinc-800 border border-zinc-700 rounded-lg py-2 px-3 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
                 placeholder="you@example.com"
               />
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-zinc-400 mb-1">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-zinc-400 mb-1"
+              >
                 Password
               </label>
               <input
                 id="password"
                 type="password"
                 required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full bg-zinc-800 border border-zinc-700 rounded-lg py-2 px-3 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
                 placeholder="••••••••"
               />
             </div>
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <span>Sign in</span>
+              <span>{loading ? "Signing in..." : "Sign in"}</span>
               <ArrowRight className="w-5 h-5" />
             </button>
           </form>
@@ -79,9 +131,12 @@ const SignIn = () => {
 
         {/* Sign Up Link */}
         <p className="text-center text-zinc-500">
-          Don't have an account?{' '}
-          <Link to="/free-trial" className="text-violet-500 hover:text-violet-400 transition-colors duration-200">
-            Start your free trial
+          Don't have an account?{" "}
+          <Link
+            to="/signup"
+            className="text-violet-500 hover:text-violet-400 transition-colors duration-200"
+          >
+            Sign up
           </Link>
         </p>
       </div>
@@ -89,4 +144,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn; 
+export default SignInPage;

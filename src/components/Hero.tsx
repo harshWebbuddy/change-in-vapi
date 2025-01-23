@@ -45,12 +45,12 @@ const Hero = () => {
               style={{ animationDelay: '0.4s' }}
             >
               <span className="bg-gradient-to-r from-white via-violet-200 to-indigo-300 bg-clip-text text-transparent">
-                Transform Your Voice
-              </span>
-              <br />
-              <span className="bg-gradient-to-r from-violet-400 to-indigo-500 bg-clip-text text-transparent">
+                Transform Your Voice  {" "}{" "}<span className="bg-gradient-to-r from-violet-400 to-indigo-500 bg-clip-text text-transparent">
                 Into Digital Magic
               </span>
+              </span>
+            
+              
             </h1>
             
             <p 

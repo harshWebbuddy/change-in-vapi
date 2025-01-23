@@ -7,7 +7,7 @@ const Testimonials = () => {
       author: "Sarah Chen",
       role: "CTO at TechFlow",
       company: "TechFlow Solutions",
-      image: "/testimonials/sarah.jpg",
+      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
       content: "The voice AI platform has transformed our customer service. We've seen a 40% reduction in response times and consistently high satisfaction scores.",
       rating: 5,
       gradient: "from-blue-500 to-indigo-500"
@@ -16,7 +16,7 @@ const Testimonials = () => {
       author: "Michael Rodriguez",
       role: "Head of Operations",
       company: "Global Retail Corp",
-      image: "/testimonials/michael.jpg",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
       content: "Implementing this voice AI solution was seamless. Our sales team now handles 3x more leads with better conversion rates than before.",
       rating: 5,
       gradient: "from-violet-500 to-purple-500"
@@ -25,13 +25,12 @@ const Testimonials = () => {
       author: "Emily Watson",
       role: "Customer Success Lead",
       company: "HealthTech Inc",
-      image: "/testimonials/emily.jpg",
+      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e",
       content: "The platform's ability to handle appointment scheduling has been a game-changer. Our patients love the natural conversation flow.",
       rating: 5,
       gradient: "from-teal-500 to-emerald-500"
     }
   ];
-
   return (
     <section className="py-32 bg-zinc-950 relative overflow-hidden">
       {/* Enhanced Gradient Background */}

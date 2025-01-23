@@ -1,127 +1,123 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import {
-  Users,
-  Phone,
-  FileText,
-  MessageSquare,
-  ChevronDown,
-  HelpCircle,
-  User,
-  LayoutDashboard,
-} from "lucide-react";
-
-// Define the props interface
-interface SidebarProps {
-  phoneNumbers: { id: string; number: string; name: string }[];
-  onSelectPhone: (phone: { id: string; number: string; name: string }) => void;
-}
-
-const Sidebar: React.FC<SidebarProps> = ({ phoneNumbers, onSelectPhone }) => {
-  const location = useLocation();
-
-  const isActive = (path: string) => {
-    return location.pathname === path;
-  };
-
+import React, { useState, useEffect } from "react";
+import { Plus, Search, Star, ArrowRight } from "lucide-react";
+import "../styles/scrollbar.css";
+const SidebarAssistant = ({
+  showCreateAssistant,
+  setTemplates,
+  setTemplates1,
+  setShowCreateAssistant,
+  searchQuery,
+  setSearchQuery,
+  assistants,
+  handleAssistantClick,
+}) => {
   return (
-    <div className="w-64 bg-[#1A1B1E] border-r border-[#2C2D32] flex flex-col h-screen">
-      {/* Logo */}
-      <div className="p-4">
-        <Link to="/" className="flex items-center space-x-2">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-[#7C3AED] rounded-lg flex items-center justify-center">
-              <span className="text-white font-semibold">V</span>
-            </div>
-            <span className="text-white font-semibold">VoiceAI</span>
+    <div className="w-[280px] md:w-[320px] border-r border-[#2C2D32] bg-gradient-to-b from-[#1A1B1E] to-[#1A1B1E]/95 backdrop-blur-xl">
+      <div className="p-4 md:p-6">
+        <button
+          onClick={() => {
+            setShowCreateAssistant(true);
+            setTemplates(null);
+            setTemplates1(null);
+          }}
+          className="w-full bg-gradient-to-r from-[#7C3AED] to-[#5B21B6] hover:from-[#6D28D9] hover:to-[#4C1D95] text-white rounded-2xl p-3 md:p-3.5 flex items-center justify-center space-x-2 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+        >
+          <Plus className="w-4 md:w-5 h-4 md:h-5" />
+          <span className="font-medium text-sm md:text-base">
+            Create Assistant
+          </span>
+        </button>
+
+        <div className="mt-6 md:mt-8 relative">
+          <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+            <Search className="w-4 h-4 text-gray-500" />
           </div>
-        </Link>
+          <input
+            type="text"
+            placeholder="Search assistants..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full bg-[#25262B]/50 text-gray-300 rounded-2xl pl-9 pr-3 py-3 md:py-3.5 border border-[#2C2D32] focus:outline-none focus:border-[#7C3AED] focus:ring-4 focus:ring-[#7C3AED]/10 placeholder-gray-500 transition-all duration-300 backdrop-blur-xl text-sm"
+          />
+        </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 px-2 py-4 space-y-1">
-        {/* Main Navigation */}
-        <div className="space-y-1">
-          <div className="space-y-1">
-            <Link
-              to="/dashboard"
-              className={`flex items-center space-x-3 px-3 py-2 text-gray-400 hover:text-white rounded-md hover:bg-[#25262B] transition-colors ${
-                isActive("/dashboard") ? "bg-[#7C3AED] text-white" : ""
-              }`}
-            >
-              <LayoutDashboard className="w-5 h-5" />
-              <span>Dashboard</span>
-            </Link>
+      <AssistantList
+        assistants={assistants?.filter((assistant) =>
+          assistant?.name?.toLowerCase()?.includes(searchQuery?.toLowerCase())
+        )}
+        onAssistantClick={handleAssistantClick}
+      />
+    </div>
+  );
+};
 
-            <Link
-              to="/assistants"
-              className={`flex items-center space-x-3 px-3 py-2 text-gray-400 hover:text-white rounded-md hover:bg-[#25262B] transition-colors ${
-                isActive("/assistants") ? "bg-[#7C3AED] text-white" : ""
-              }`}
-            >
-              <Users className="w-5 h-5" />
-              <span>Assistants</span>
-            </Link>
+const AssistantList = ({ assistants, onAssistantClick }) => {
+  const [isLoading, setIsLoading] = useState(false);
 
-            <Link
-              to="/phone-number"
-              className={`flex items-center space-x-3 px-3 py-2 text-gray-400 hover:text-white rounded-md hover:bg-[#25262B] transition-colors ${
-                isActive("/phone-number") ? "bg-[#7C3AED] text-white" : ""
-              }`}
-            >
-              <Phone className="w-5 h-5" />
-              <span>Phone Numbers</span>
-            </Link>
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => setIsLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, []);
 
-            <Link
-              to="/files"
-              className={`flex items-center space-x-3 px-3 py-2 text-gray-400 hover:text-white rounded-md hover:bg-[#25262B] transition-colors ${
-                isActive("/files") ? "bg-[#7C3AED] text-white" : ""
-              }`}
-            >
-              <FileText className="w-5 h-5" />
-              <span>Files</span>
-            </Link>
-
-            <Link
-              to="/logs"
-              className={`flex items-center justify-between px-3 py-2 text-gray-400 hover:text-white rounded-md hover:bg-[#25262B] transition-colors ${
-                isActive("/logs") ? "bg-[#7C3AED] text-white" : ""
-              }`}
-            >
-              <div className="flex items-center space-x-3">
-                <MessageSquare className="w-5 h-5" />
-                <span>Logs</span>
-              </div>
-              <ChevronDown className="w-4 h-4" />
-            </Link>
+  return (
+    <div className="px-4 min-h-screen overflow-y-aut  scrollbar-thin scrollbar-thumb-[#2C2D32] scrollbar-track-transparent  bg-gradient-to-br from-[#1A1B1E] via-[#1A1B1E] to-[#7C3AED]/5 scrollbar-thin scrollbar-thumb-[#7C3AED] scrollbar-track-[#1A1B1E]">
+      {isLoading ? (
+        <div className="text-center py-4 text-gray-400">
+          <div className="animate-pulse">Fetching assistants...</div>
+          <div className="mt-2 h-1 bg-[#7C3AED] rounded-full animate-progress" />
+        </div>
+      ) : Array.isArray(assistants) && assistants?.length > 0 ? (
+        assistants.map((assistant) => (
+          <AssistantCard
+            key={assistant.id}
+            assistant={assistant}
+            onClick={() => onAssistantClick(assistant.id)}
+          />
+        ))
+      ) : (
+        <div className="text-center py-4 text-gray-400">
+          <div className="flex flex-col items-center">
+            <div className="animate-bounce mb-2">
+              <Star className="w-6 h-6 text-[#7C3AED]" />
+            </div>
+            <span className="text-lg font-semibold">No assistants found</span>
+            <span className="text-sm text-gray-500 mt-1">
+              Try adjusting your search
+            </span>
           </div>
         </div>
-      </nav>
+      )}
+    </div>
+  );
+};
 
-      {/* Bottom Section */}
-      <div className="p-4 border-t border-[#2C2D32]">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-[#25262B] rounded-full flex items-center justify-center">
-              <User className="w-5 h-5 text-gray-400" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm text-white">Profile</span>
-            </div>
+const AssistantCard = ({ assistant, onClick }) => {
+  return (
+    <div
+      onClick={onClick}
+      className="group p-4 mb-3 bg-[#25262B]/50 rounded-2xl border border-[#2C2D32] hover:border-[#7C3AED]/30 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-black/20 transform hover:-translate-y-0.5 backdrop-blur-xl"
+    >
+      <div className="flex items-center gap-3">
+        <div className="w-10 md:w-12 h-10 md:h-12 bg-gradient-to-br from-[#7C3AED] to-[#5B21B6] rounded-xl flex items-center justify-center shadow-lg text-white font-medium">
+          {assistant?.name?.slice(0, 2).toUpperCase() || "AI"}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="text-sm text-white font-medium group-hover:text-[#7C3AED] transition-colors flex items-center space-x-2">
+            <span className="truncate">{assistant.name || "Assistant"}</span>
+            {assistant.isFavorite && (
+              <Star className="w-4 h-4 text-yellow-400 fill-current" />
+            )}
+          </div>
+          <div className="text-xs text-gray-400 mt-1 truncate">
+            {assistant.type || "AI Assistant"}
           </div>
         </div>
-        <div className="flex items-center space-x-2 px-3 py-2 text-[#4DB8B2] bg-[#25262B] rounded-md cursor-pointer hover:bg-[#2C2D32] transition-colors">
-          <span className="text-sm">sanskar@webbuddy.co</span>
-          <ChevronDown className="w-4 h-4" />
-        </div>
-        <button className="mt-2 flex items-center space-x-2 px-3 py-2 text-gray-400 hover:text-white rounded-md hover:bg-[#25262B] transition-colors w-full">
-          <HelpCircle className="w-4 h-4" />
-          <span className="text-sm">Docs and Support</span>
-        </button>
+        <ArrowRight className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-all duration-300" />
       </div>
     </div>
   );
 };
 
-export default Sidebar;
+export default SidebarAssistant;

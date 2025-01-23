@@ -85,7 +85,7 @@ const UseCases = () => {
                 <div className="flex items-center justify-between">
                   <span className="text-zinc-400 group-hover:text-zinc-300 transition-colors duration-300">Smart appointment scheduling</span>
                   <div className="px-4 py-1.5 rounded-full bg-gradient-to-r from-teal-500/20 to-emerald-500/20 border border-teal-500/10 group-hover:border-teal-500/20 transition-all duration-300 backdrop-blur-sm hover:scale-105">
-                    <span className="text-teal-300">2x faster bookings</span>
+                    <span className="text-teal-300 whitespace-nowrap">2x faster bookings</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
@@ -159,7 +159,7 @@ const UseCases = () => {
                 <div className="flex items-center justify-between">
                   <span className="text-zinc-400 group-hover:text-zinc-300 transition-colors duration-300">Automated appointment management</span>
                   <div className="px-4 py-1.5 rounded-full bg-gradient-to-r from-violet-500/20 to-purple-500/20 border border-violet-500/10 group-hover:border-violet-500/20 transition-all duration-300 backdrop-blur-sm hover:scale-105">
-                    <span className="text-violet-300">3x efficiency</span>
+                    <span className="text-violet-300 whitespace-nowrap">3x efficiency</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
