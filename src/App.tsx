@@ -18,11 +18,11 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import SignUpPage from "./pages/signup";
 import { AuthProvider } from "./contexts/AuthContext";
-import SignInPage from "./pages/Signin";
-import Company from "./pages/Company";
+ import Company from "./pages/Company";
 import BlogpageAI from "./pages/Blog1";
 import ProfilePage from "./components/ProfilePage";
-
+import SignInPage from "./components/Signin";
+ 
 const queryClient = new QueryClient();
 
 // Protected Route component
