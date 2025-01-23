@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Sidebar from '@/components/Sidebar';
-import { Copy, Settings2, Plus, Search, ChevronDown, FileText, Upload, Info, Sparkles, MessageCircle, PhoneCall, Trash2, X, Clock, Users, Gamepad2, HelpCircle } from 'lucide-react';
+ import { Copy, Settings2, Plus, Search, ChevronDown, FileText, Upload, Info, Sparkles, MessageCircle, PhoneCall, Trash2, X, Clock, Users, Gamepad2, HelpCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Sidebar from '@/components/SidebarProps';
 
 const Dashboard = () => {
   const [showDropdown, setShowDropdown] = useState(false);

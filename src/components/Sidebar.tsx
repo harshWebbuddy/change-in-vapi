@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   Users,
   Phone,
@@ -8,10 +8,16 @@ import {
   ChevronDown,
   HelpCircle,
   User,
-  LayoutDashboard
-} from 'lucide-react';
+  LayoutDashboard,
+} from "lucide-react";
 
-const Sidebar = () => {
+// Define the props interface
+interface SidebarProps {
+  phoneNumbers: { id: string; number: string; name: string }[];
+  onSelectPhone: (phone: { id: string; number: string; name: string }) => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ phoneNumbers, onSelectPhone }) => {
   const location = useLocation();
 
   const isActive = (path: string) => {
@@ -40,7 +46,7 @@ const Sidebar = () => {
             <Link
               to="/dashboard"
               className={`flex items-center space-x-3 px-3 py-2 text-gray-400 hover:text-white rounded-md hover:bg-[#25262B] transition-colors ${
-                isActive('/dashboard') ? 'bg-[#7C3AED] text-white' : ''
+                isActive("/dashboard") ? "bg-[#7C3AED] text-white" : ""
               }`}
             >
               <LayoutDashboard className="w-5 h-5" />
@@ -50,7 +56,7 @@ const Sidebar = () => {
             <Link
               to="/assistants"
               className={`flex items-center space-x-3 px-3 py-2 text-gray-400 hover:text-white rounded-md hover:bg-[#25262B] transition-colors ${
-                isActive('/assistants') ? 'bg-[#7C3AED] text-white' : ''
+                isActive("/assistants") ? "bg-[#7C3AED] text-white" : ""
               }`}
             >
               <Users className="w-5 h-5" />
@@ -60,7 +66,7 @@ const Sidebar = () => {
             <Link
               to="/phone-number"
               className={`flex items-center space-x-3 px-3 py-2 text-gray-400 hover:text-white rounded-md hover:bg-[#25262B] transition-colors ${
-                isActive('/phone-number') ? 'bg-[#7C3AED] text-white' : ''
+                isActive("/phone-number") ? "bg-[#7C3AED] text-white" : ""
               }`}
             >
               <Phone className="w-5 h-5" />
@@ -70,7 +76,7 @@ const Sidebar = () => {
             <Link
               to="/files"
               className={`flex items-center space-x-3 px-3 py-2 text-gray-400 hover:text-white rounded-md hover:bg-[#25262B] transition-colors ${
-                isActive('/files') ? 'bg-[#7C3AED] text-white' : ''
+                isActive("/files") ? "bg-[#7C3AED] text-white" : ""
               }`}
             >
               <FileText className="w-5 h-5" />
@@ -80,7 +86,7 @@ const Sidebar = () => {
             <Link
               to="/logs"
               className={`flex items-center justify-between px-3 py-2 text-gray-400 hover:text-white rounded-md hover:bg-[#25262B] transition-colors ${
-                isActive('/logs') ? 'bg-[#7C3AED] text-white' : ''
+                isActive("/logs") ? "bg-[#7C3AED] text-white" : ""
               }`}
             >
               <div className="flex items-center space-x-3">
@@ -118,4 +124,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar; 
+export default Sidebar;

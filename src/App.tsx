@@ -28,7 +28,8 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/phone-number" element={<PhoneNumber />} />
             <Route path="/files" element={<Files />} />
-            <Route path="/logs" element={<Logs />} />
+            <Route path="/call-logs" element={<Logs />} />
+            {/* <Route path="/assistant" element={<Assistant />} /> */}
           </Routes>
         </Router>
       </TooltipProvider>
