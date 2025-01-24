@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ArrowRight, Github, Mail } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Google } from "@mui/icons-material";
 
 const SignUpPage = () => {
   const [email, setEmail] = useState("");
@@ -63,9 +64,9 @@ const SignUpPage = () => {
 
           {/* OAuth Buttons */}
           <div className="space-y-3 mb-6">
-            <button className="w-full flex items-center justify-center space-x-2 bg-zinc-800 hover:bg-zinc-700 text-white py-3 px-4 rounded-lg transition-colors duration-200">
-              <Github className="w-5 h-5" />
-              <span>Continue with GitHub</span>
+          <button className="w-full flex items-center justify-center space-x-2 bg-zinc-800 hover:bg-zinc-700 text-white py-3 px-4 rounded-lg transition-colors duration-200">
+              <Google className="w-5 h-5" />
+              <span>Continue with Google</span>
             </button>
             <button className="w-full flex items-center justify-center space-x-2 bg-zinc-800 hover:bg-zinc-700 text-white py-3 px-4 rounded-lg transition-colors duration-200">
               <Mail className="w-5 h-5" />
