@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (token) {
       // Verify token and get user data
       axios
-        .get(`${process.env.REACT_APP_API_URL}/user`, {
+        .get("http://localhost:3000/api/user", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
