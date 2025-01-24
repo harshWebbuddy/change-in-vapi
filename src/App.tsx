@@ -25,13 +25,13 @@ import SignInPage from "./components/Signin";
 
 const queryClient = new QueryClient();
 
- const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    return <Navigate to="/signin" />;
-  }
-  return <>{children}</>;
-};
+// const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+//   const token = localStorage.getItem("token");
+//   if (!token) {
+//     return <Navigate to="/signin" />;
+//   }
+//   return <>{children}</>;
+// };
 
 function AppRoutes() {
   return (
@@ -45,41 +45,41 @@ function AppRoutes() {
       <Route
         path="/dashboard"
         element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <Dashboard />
+          // </ProtectedRoute>
         }
       />{" "}
       <Route
         path="/profile"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <ProfilePage />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
       <Route
         path="/phone-numbers"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <PhoneNumber />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
       <Route
         path="/files"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <Files />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
       <Route
         path="/call-logs"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <Logs />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
       <Route path="*" element={<Navigate to="/signin" />} />

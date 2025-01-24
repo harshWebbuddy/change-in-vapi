@@ -18,7 +18,7 @@ const SignUpPage = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${import.meta.env.REACT_APP_API_URL}/signup`, {
+      const response = await axios.post(`${import.meta.env.VITE_REACT_APP_API_URL}/signup`, {
         email,
         password,
         name,
