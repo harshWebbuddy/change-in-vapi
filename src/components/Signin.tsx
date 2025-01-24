@@ -16,10 +16,13 @@ const SignInPage = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:3000/api/signin", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/signin`,
+        {
+          email,
+          password,
+        }
+      );
 
       // Store token in localStorage
       localStorage.setItem("token", response.data.token);
