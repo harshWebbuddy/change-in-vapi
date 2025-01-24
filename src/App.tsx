@@ -18,15 +18,14 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import SignUpPage from "./pages/signup";
 import { AuthProvider } from "./contexts/AuthContext";
- import Company from "./pages/Company";
+import Company from "./pages/Company";
 import BlogpageAI from "./pages/Blog1";
 import ProfilePage from "./components/ProfilePage";
 import SignInPage from "./components/Signin";
- 
+
 const queryClient = new QueryClient();
 
-// Protected Route component
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const token = localStorage.getItem("token");
   if (!token) {
     return <Navigate to="/signin" />;

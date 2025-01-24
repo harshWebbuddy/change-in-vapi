@@ -17,7 +17,7 @@ const SignInPage = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/signin`,
+        `${import.meta.env.VITE_REACT_APP_API_URL}/signin`,
         {
           email,
           password,

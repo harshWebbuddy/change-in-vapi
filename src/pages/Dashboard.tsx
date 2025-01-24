@@ -769,8 +769,7 @@ const AssistantPage = () => {
         <AnimatePresence>
           {showCreateAssistant && (
             <>
-              {/* Overlay */}
-              <motion.div
+               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.4 }}
                 exit={{ opacity: 0 }}
@@ -778,8 +777,7 @@ const AssistantPage = () => {
                 onClick={() => setShowCreateAssistant(false)}
               />
 
-              {/* Slide Panel */}
-              <motion.div
+               <motion.div
                 initial={{ x: "-100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "-100%" }}
