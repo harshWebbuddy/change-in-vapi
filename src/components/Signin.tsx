@@ -64,10 +64,7 @@ const SignInPage = () => {
 
           {/* OAuth Buttons */}
           <div className="space-y-3 mb-6">
-            <button className="w-full flex items-center justify-center space-x-2 bg-zinc-800 hover:bg-zinc-700 text-white py-3 px-4 rounded-lg transition-colors duration-200">
-              <Mail className="w-5 h-5" />
-              <span>Continue with Email</span>
-            </button>
+           
             <button className="w-full flex items-center justify-center space-x-2 bg-zinc-800 hover:bg-zinc-700 text-white py-3 px-4 rounded-lg transition-colors duration-200">
               <Google className="w-5 h-5" />
               <span>Continue with Google</span>
